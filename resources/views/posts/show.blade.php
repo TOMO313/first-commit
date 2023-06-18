@@ -12,17 +12,17 @@
         
     </head>
     <body class="antialiased">
-        <h1>Blog Name</h1>
-        <div class='posts'>
-            @foreach($posts as $post)
-            <div class='post'>
-                <a href="/posts/{{$post->id}}"><h2 class='title'>{{ $post->title }}</h2></a>
+        <h1 class = 'title'>
+            {{ $post->title }}
+        </h1>
+        <div class='content'>
+            <div class='content_post'>
+                <h3>本文</h3>
                 <p class='body'>{{ $post->body }}</p>
             </div>
-            @endforeach
         </div>
-        <div class='Paginate'>
-            {{ $posts->links() }}
-        </div> 
+        <div class ='footer'>
+            <a href = "/">戻る</a>
+        </div>
     </body>
 </html>

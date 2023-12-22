@@ -12,12 +12,18 @@
         
     </head>
     <body class="antialiased">
+        <x-app-layout>
+            <x-slot name="header">
+                
+            </x-slot>
+        <h1>ログインユーザー:{{Auth::user()->name}}</h1>
         <h1>Blog Name</h1>
         <a href="/posts/create">create</a>
         <div class='posts'>
             @foreach($posts as $post)
             <div class='post'>
                 <a href="/posts/{{$post->id}}"><h2 class='title'>{{ $post->title }}</h2></a>
+                <a href="/categories/{{$post->category->id}}">{{$post->category->name}}</a>
                 <p class='body'>{{ $post->body }}</p>
                 <form action="/posts/{{$post->id}}" id="form_{{$post->id}}" method="post">
                     @csrf
@@ -26,6 +32,15 @@
                 </form>
             </div>
             @endforeach
+            <div>
+            @foreach($questions as $question)
+            <diV>
+              <a href="https://teratail.com/questions/{{$question['id']}}">
+                {{$question['title']}}
+              </a>
+            </diV>
+            @endforeach
+            </div>
         </div>
         <div class='Paginate'>
             {{ $posts->links() }}
@@ -40,5 +55,6 @@
                 }
             }
         </script>
+        </x-app-layout>
     </body>
 </html>

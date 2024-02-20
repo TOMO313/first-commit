@@ -7,7 +7,6 @@
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
         <!-- Styles -->
         
     </head>
@@ -16,6 +15,14 @@
             <x-slot name="header">
                 
             </x-slot>
+        <div>
+            <form action="/posts/search" method='GET'>
+                @csrf
+                <input type="text" name="keyword"/>
+                <input type="submit" value="検索"/>
+            </form>
+        </div>
+        
         <h1>ログインユーザー:{{Auth::user()->name}}</h1>
         <h1>Blog Name</h1>
         <a href="/posts/create">create</a>
@@ -42,7 +49,7 @@
             @endforeach
             </div>
         </div>
-        <div class='Paginate'>
+        <div class='flex'>
             {{ $posts->links() }}
         </div> 
         <script>

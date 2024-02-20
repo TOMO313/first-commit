@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
+use App\Models\Review;
 
 class PostController extends Controller
 {
@@ -27,7 +29,16 @@ class PostController extends Controller
           'posts' => $post->getPaginateByLimit(3),
           'questions' =>$questions['questions'],
       ]);
-  }   
+  }
+  
+  public function search(Request $request){
+   $posts = Post::all();
+   $keyword = $request->input('keyword');
+   if(!empty($keyword)){
+    $post = $posts->where('titie', $keyword)->get();
+   }
+   return view('posts/search')->with(['post' => $post]);
+  }
   
   public function show(Post $post)
   {
@@ -63,4 +74,41 @@ class PostController extends Controller
      $post->delete();
      return redirect('/');
   }
+  
+  /*public function list()
+  {
+     return Post::with('reviews.user')->get();
+  }
+  
+  public function review(Request $request){
+     $result = false;
+     $request->validate([
+      'post_id'=>[
+       'required',
+       'exists:posts,id',
+       function($attribute, $value, $fail) use($request){
+        if(!auth()->check()){
+         $fail('レビューするにはログインしてください。');
+         return;
+        }
+        
+        $exists = Review::where('user_id', $request->user()->id)
+        ->where('post_id', $request->post_id)
+        ->exists();
+        if($exists){
+         $fail('すでにレビューは投稿済みです。');
+         return;
+        }
+       }
+       ],
+       'stars'=>'required|integer|min:1|max:5',
+      ]);
+      
+      $review = new Review();
+      $review->post_id = $request->post_id;
+      $review->user_id = $request->user()->id;
+      $review->stars = $request->stars;
+      $result = $review->save();
+      return view('posts/index')->with(['result'=>$result]);
+  }*/
 }

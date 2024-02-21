@@ -31,13 +31,12 @@ class PostController extends Controller
       ]);
   }
   
-  public function search(Request $request){
-   $posts = Post::all();
-   $keyword = $request->input('keyword');
-   if(!empty($keyword)){
-    $post = $posts->where('titie', $keyword)->get();
+  public function search(Request $request)
+  {
+   if(isset($request->keyword)){
+    $posts = Post::where('title', 'LIKE', "%$request->keyword%")->get();
    }
-   return view('posts/search')->with(['post' => $post]);
+   return view('posts/search')->with(['posts' => $posts]);
   }
   
   public function show(Post $post)

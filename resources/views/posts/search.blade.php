@@ -12,6 +12,7 @@
         
     </head>
     <body class="antialiased">
+        @foreach($posts as $post)
         <h1 class = 'title'>
             {{ $post->title }}
         </h1>
@@ -25,6 +26,7 @@
         <div class ='edit'>
             <a href = "/posts/{{$post->id}}/edit">edit</a>
         </div>
+        @endforeach
         <div class ='footer'>
             <a href = "/">戻る</a>
         </div>

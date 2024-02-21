@@ -15,17 +15,14 @@
             <x-slot name="header">
                 
             </x-slot>
-        <div>
-            <form action="/posts/search" method='GET'>
-                @csrf
-                <input type="text" name="keyword"/>
-                <input type="submit" value="検索"/>
-            </form>
-        </div>
-        
         <h1>ログインユーザー:{{Auth::user()->name}}</h1>
         <h1>Blog Name</h1>
         <a href="/posts/create">create</a>
+        <form action="/posts/search" method='GET'>
+                @csrf
+                <input type="text" name="keyword"/>
+                <input type="submit" value="検索"/>
+    　　</form>
         <div class='posts'>
             @foreach($posts as $post)
             <div class='post'>

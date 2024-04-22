@@ -7,15 +7,11 @@
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
+        <link rel="stylesheet" href="{{ asset('/build/assets/test.css')}}">
         <!-- Styles -->
         
     </head>
     <body class="antialiased">
-        <x-app-layout>
-            <x-slot name="header">
-                
-            </x-slot>
        <h1>Blog Name</h1>
        <form action="/posts/{{$post->id}}" method="POST">
          @csrf
@@ -35,6 +31,5 @@
         <div class ='footer'>
             <a href = "/posts/{{$post->id}}">戻る</a>
         </div>
-        </x-app-layout>
     </body>
 </html>
